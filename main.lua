@@ -35,7 +35,6 @@ function Game:initialize()
     self.res = {}
     self.res.img = {}
     self.res.snd = {}
-    self.pworld = bump.newWorld()
 end
 
 function Load:load_resources()

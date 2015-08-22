@@ -1,6 +1,6 @@
 local Littleman = class('Littleman')
 
-function Littleman:initialize(game, x, y, woman)
+function Littleman:initialize(game, level, x, y, woman)
     self.x = x
     self.y = y
     self.scaredID = beholder.observe("scare", function() self.scared = true end)
@@ -18,7 +18,7 @@ function Littleman:initialize(game, x, y, woman)
     self.shock = anim8.newAnimation(g('1-2', 1), 0.5)
     self.run = anim8.newAnimation(g('3-4', 1), 0.1)
     self.animation = self.shock
-    game.entities["littleman" .. love.timer.getTime()] = self
+    level.entities["littleman" .. love.timer.getTime()] = self
 end
 
 function Littleman:draw()

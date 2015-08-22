@@ -8,7 +8,7 @@ function Player.filter(item, other)
     end
 end
 
-function Player:initialize(game, x, y)
+function Player:initialize(game, level, x, y)
     self.z = 200
     self.id = "player"
     self.img = game.res.img["idle.png"]
@@ -17,7 +17,7 @@ function Player:initialize(game, x, y)
     self.idle = anim8.newAnimation(g('1-8', 1), 0.5)
     self.walk = anim8.newAnimation(g('9-12', 1), 0.1)
     self.curAnim = self.idle
-    self.pworld = game.pworld
+    self.pworld = level.pworld
     self.pworld:add(self, x, y, 26, 38)
     self.flip = false
 end
