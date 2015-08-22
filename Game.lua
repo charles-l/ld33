@@ -1,13 +1,12 @@
 local Game = class('Game')
 Game:include(Stateful)
-
 function Game:load()
-    love.graphics.setFont(love.graphics.newFont('res/runescape_uf.ttf', 25))
+    love.graphics.setFont(font)
     self.entities = table.ordered()
     self.entities.level = Level:new(self)
     self.entities.player = Player:new(self, 50, 50)
     self.cam = gamera.new(0, 152, 1550, 2000)
-    Textbox.text('hi', 3, 10, 10)
+    Textbox.text('hi', 3, 100, 100)
 end
 
 function Game:draw()

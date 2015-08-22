@@ -27,6 +27,9 @@ Trigger = require 'Trigger'
 Game = require 'Game'
 Load = Game:addState('Load')
 
+-- global font
+font = love.graphics.newFont('res/runescape_uf.ttf', 25)
+
 function Game:initialize()
     self.res = {}
     self.res.img = {}
