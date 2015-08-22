@@ -1,0 +1,42 @@
+[submodule "libs/love-struct"]
+	path = libs/love-struct
+	url = https://github.com/Kadoba/love-struct
+[submodule "libs/anim8"]
+	path = libs/anim8
+	url = https://github.com/kikito/anim8
+[submodule "libs/cron.lua"]
+	path = libs/cron.lua
+	url = https://github.com/kikito/cron.lua
+[submodule "libs/lume"]
+	path = libs/lume
+	url = https://github.com/rxi/lume
+[submodule "libs/thranduil"]
+	path = libs/thranduil
+	url = https://github.com/adonaac/thranduil
+[submodule "libs/LICK"]
+	path = libs/LICK
+	url = https://github.com/headchant/LICK
+[submodule "libs/tween.lua"]
+	path = libs/tween.lua
+	url = https://github.com/kikito/tween.lua
+[submodule "libs/thomas"]
+	path = libs/thomas
+	url = https://github.com/adonaac/thomas
+[submodule "libs/middleclass"]
+	path = libs/middleclass
+	url = https://github.com/kikito/middleclass
+[submodule "libs/love-loader"]
+	path = libs/love-loader
+	url = https://github.com/kikito/love-loader
+[submodule "libs/popo"]
+	path = libs/popo
+	url = https://github.com/adonaac/popo
+[submodule "libs/stateful.lua"]
+	path = libs/stateful.lua
+	url = https://github.com/kikito/stateful.lua
+[submodule "libs/tilemp"]
+	path = libs/tilemp
+	url = https://github.com/charles-l/tilemp
+[submodule "libs/bump.lua"]
+	path = libs/bump
+	url = https://github.com/kikito/bump.lua
