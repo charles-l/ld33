@@ -43,3 +43,6 @@
 [submodule "libs/gamera"]
 	path = libs/gamera
 	url = https://github.com/kikito/gamera
+[submodule "libs/beholder.lua"]
+	path = libs/beholder
+	url = https://github.com/kikito/beholder.lua
