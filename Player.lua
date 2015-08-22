@@ -22,10 +22,10 @@ function Player:update(dt)
     if love.keyboard.isDown('up') then
         self:move(0, -5)
     end
-    ]]--
     if love.keyboard.isDown('down') then
         self:move(0, 5)
     end
+    ]]--
     if love.keyboard.isDown('left') then
         self:move(-5, 0)
     end

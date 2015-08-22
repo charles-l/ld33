@@ -13,6 +13,7 @@ function Game:load()
     love.graphics.setFont(love.graphics.newFont('res/runescape_uf.ttf', 25))
     self.entities = {}
     self.entities.player = Player:new(self.pworld, 50, 50)
+    self.entities.level = Level:new(self.pworld)
 end
 
 function Game:draw()
@@ -24,7 +25,9 @@ end
 
 function Game:update(dt)
     for _, v in pairs(self.entities) do
-        v:update(dt)
+        if v["update"] ~= nil then
+            v:update(dt)
+        end
     end
 end
 

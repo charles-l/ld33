@@ -31,8 +31,8 @@
 [submodule "libs/popo"]
 	path = libs/popo
 	url = https://github.com/adonaac/popo
-[submodule "libs/stateful.lua"]
-	path = libs/stateful.lua
+[submodule "libs/stateful"]
+	path = libs/stateful
 	url = https://github.com/kikito/stateful.lua
 [submodule "libs/tilemp"]
 	path = libs/tilemp

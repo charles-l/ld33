@@ -14,8 +14,11 @@ lick.reset = true -- live code reload
 ]]--
 
 Player = require 'Player'
+Level = require 'Level'
+
 Game = require 'Game'
 Load = Game:addState('Load')
+
 
 function Load:load_resources()
     for _, fname in pairs(love.filesystem.getDirectoryItems("res/img")) do
