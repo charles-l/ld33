@@ -43,9 +43,10 @@ function Player:move(vx, vy)
             other:trigger()
         end
 
-        if other.id == "littleman" then
+        if other.id == "littleman" and love.keyboard.isDown(' ') then
             other:eat()
             self.hunger = self.hunger + 50
+            if self.hunger > 100 then self.hunger = 100 end
         end
     end
 end

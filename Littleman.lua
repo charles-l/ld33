@@ -7,7 +7,7 @@ function Littleman:initialize(game, level, x, y, woman)
     self.timer = cron.after(1, function()
         self.animation = self.run
     end)
-    self.eattimer = cron.after(1, function()
+    self.eattimer = cron.after(0.1, function()
         self.pworld:remove(self)
         self.level.entities[self.name] = nil
     end)
@@ -22,7 +22,7 @@ function Littleman:initialize(game, level, x, y, woman)
     local g = anim8.newGrid(6, 23, self.img:getWidth(), self.img:getHeight())
     self.shock = anim8.newAnimation(g('1-2', 1), 0.5)
     self.run = anim8.newAnimation(g('3-4', 1), 0.1)
-    self.aeat = anim8.newAnimation(g(5,1), 1)
+    self.aeat = anim8.newAnimation(g(5,1), .3)
     self.eatnow = false
     self.animation = self.shock
     self.name = "littleman" .. love.timer.getTime()
@@ -35,15 +35,14 @@ function Littleman:draw()
     if self.eatnow then
         local x,y,w,h = self.pworld:getRect(self.level.entities.player)
         if self.level.entities.player.flip then
-            self.animation:draw(self.img, x, y, math.pi/2)
+            self.animation:draw(self.img, x + 5, y + 15, math.pi/2)
         else
-            self.animation:draw(self.img, x, y, -math.pi/2)
+            self.animation:draw(self.img, x + 12, y + 23, -math.pi/2)
         end
+        -- add particle system
     else
         self.animation:draw(self.img, x, y)
     end
-
-    love.graphics.rectangle('line', self.pworld:getRect(self))
 end
 
 function Littleman:eat()
