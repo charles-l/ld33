@@ -1,13 +1,25 @@
 local Player = class('Player')
 
-function Player:initialize(pworld, x, y)
+function Player:initialize(game, x, y)
     self.id = "player"
-    self.img = nil
-    self.pworld = pworld
-    self.pworld:add(self, x, y, 20, 20)
+    self.img = game.res.img["idle.png"]
+    self.img:setFilter('nearest', 'nearest')
+    local g = anim8.newGrid(26, 38, self.img:getWidth(), self.img:getHeight())
+    self.idle = anim8.newAnimation(g('1-8', 1), 0.5)
+    self.walk = anim8.newAnimation(g('9-12', 1), 0.1)
+    self.curAnim = self.idle
+    self.pworld = game.pworld
+    self.pworld:add(self, x, y, 26, 38)
+    self.flip = false
 end
 
 function Player:draw()
+    local x, y = self.pworld:getRect(self)
+    if self.flip then
+        self.curAnim:draw(self.img, x + 26, y, 0, -1, 1)
+    else
+        self.curAnim:draw(self.img, x, y, 0, 1, 1)
+    end
     love.graphics.rectangle('line', self.pworld:getRect(self))
 end
 
@@ -17,6 +29,7 @@ function Player:move(vx, vy)
 end
 
 function Player:update(dt)
+    self.curAnim:update(dt)
     self:move(0, 7) -- gravity
     --[[
     if love.keyboard.isDown('up') then
@@ -27,10 +40,17 @@ function Player:update(dt)
     end
     ]]--
     if love.keyboard.isDown('left') then
+        self.curAnim = self.walk
         self:move(-5, 0)
+        self.flip = true
     end
     if love.keyboard.isDown('right') then
+        self.curAnim = self.walk
         self:move(5, 0)
+        self.flip = false
+    end
+    if not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
+        self.curAnim = self.idle
     end
 end
 

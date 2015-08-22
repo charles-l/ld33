@@ -6,10 +6,12 @@ loader = require 'libs.love-loader.love-loader'
 Text = require 'libs.popo.Text'
 bump = require 'libs.bump.bump'
 Input = require 'libs.thomas.Input'
+tilemp = require 'libs.tilemp.tilemp'
+gamera = require 'libs.gamera.gamera'
 
 --[[
 lick = require 'libs.LICK.lick'
-lick.file = "Game.lua" -- for now
+lick.file = "Level.lua" -- for now
 lick.reset = true -- live code reload
 ]]--
 
@@ -19,11 +21,18 @@ Level = require 'Level'
 Game = require 'Game'
 Load = Game:addState('Load')
 
+function Game:initialize()
+    self.cam = gamera.new(0, 200, 2000, 2000)
+    self.res = {}
+    self.res.img = {}
+    self.res.snd = {}
+    self.pworld = bump.newWorld()
+end
 
 function Load:load_resources()
     for _, fname in pairs(love.filesystem.getDirectoryItems("res/img")) do
-        loader.newImage(self.res.img, fname, "res/img/" .. fname)
-        print(fname)
+        --loader.newImage(self.res.img, fname, "res/img/" .. fname)
+        self.res.img[fname] = love.graphics.newImage("res/img/" .. fname)
     end
 
     loader.start(self:gotoState())
