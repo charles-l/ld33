@@ -33,6 +33,7 @@ function Level2:initialize(game)
 
     self.cam = gamera.new(0, 152, 1550, 2000)
     Textbox.text('hi', 3, 100, 100)
+    beholder.trigger("scare")
 end
 
 function Level2:draw()
@@ -42,13 +43,18 @@ function Level2:draw()
         love.graphics.scale(2)
         tilemp.drawTiles()
         for _, _, v in orderedPairs(self.entities) do
-            v:draw()
+            if v ~= nil then
+                v:draw()
+            end
         end
     end)
     love.graphics.setColor(0, 0, 0, 255)
     love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), 150)
     love.graphics.rectangle('fill', 0, love.graphics.getHeight() - 150, love.graphics.getWidth(), 150)
     Textbox.draw()
+    love.graphics.setColor(255,255,255,255)
+    love.graphics.print('Hunger ', 10, 10)
+    love.graphics.rectangle('fill', 95, 10, self.entities.player.hunger, 25)
 end
 
 function Level2:update(dt)
@@ -56,8 +62,10 @@ function Level2:update(dt)
     self.cam:setPosition(cx * 2, cy * 2 - 100) -- follow player
 
     for _, v in pairs(self.entities) do
-        if v["update"] ~= nil then
-            v:update(dt)
+        if v ~= nil then
+            if v["update"] ~= nil then
+                v:update(dt)
+            end
         end
     end
     Textbox.update(dt)

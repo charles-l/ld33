@@ -16,6 +16,7 @@ function Player:initialize(game, level, x, y)
     local g = anim8.newGrid(26, 38, self.img:getWidth(), self.img:getHeight())
     self.idle = anim8.newAnimation(g('1-8', 1), 0.5)
     self.walk = anim8.newAnimation(g('9-12', 1), 0.1)
+    self.eat = anim8.newAnimation(g('13-14', 1), 0.1)
     self.curAnim = self.idle
     self.pworld = level.pworld
     self.pworld:add(self, x, y, 26, 38)
@@ -40,6 +41,11 @@ function Player:move(vx, vy)
         local other = cols[i].other
         if other.id == "trigger" then
             other:trigger()
+        end
+
+        if other.id == "littleman" then
+            other:eat()
+            self.hunger = self.hunger + 50
         end
     end
 end
@@ -67,6 +73,11 @@ function Player:update(dt)
     end
     if not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
         self.curAnim = self.idle
+    end
+    if love.keyboard.isDown(' ') then
+        self.curAnim = self.eat
+        self.hunger = self.hunger - 10 * dt
+        -- eat
     end
     self.hunger = self.hunger - 1 * dt
 end
