@@ -10,6 +10,7 @@ tilemp = require 'libs.tilemp.tilemp'
 gamera = require 'libs.gamera.gamera'
 cron = require 'libs.cron.cron'
 beholder = require 'libs.beholder.beholder'
+tween = require 'libs.tween.tween'
 require 'util'
 
 --[[

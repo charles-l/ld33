@@ -17,7 +17,7 @@
 	path = libs/LICK
 	url = https://github.com/headchant/LICK
 [submodule "libs/tween.lua"]
-	path = libs/tween.lua
+	path = libs/tween
 	url = https://github.com/kikito/tween.lua
 [submodule "libs/thomas"]
 	path = libs/thomas
