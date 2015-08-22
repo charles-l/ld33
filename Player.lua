@@ -1,6 +1,15 @@
 local Player = class('Player')
 
+function Player.filter(item, other)
+    if other.id == "trigger" then
+        return 'cross'
+    else
+        return 'slide'
+    end
+end
+
 function Player:initialize(game, x, y)
+    self.z = 200
     self.id = "player"
     self.img = game.res.img["idle.png"]
     self.img:setFilter('nearest', 'nearest')
@@ -25,7 +34,13 @@ end
 
 function Player:move(vx, vy)
     local x,y,w,h = self.pworld:getRect(self)
-    self.pworld:move(self, x + vx, y + vy)
+    local x, y, cols, len = self.pworld:move(self, x + vx, y + vy, self.filter)
+    for i = 1, len do
+        local other = cols[i].other
+        if other.id == "trigger" then
+            other:trigger()
+        end
+    end
 end
 
 function Player:update(dt)

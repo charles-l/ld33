@@ -8,6 +8,9 @@ bump = require 'libs.bump.bump'
 Input = require 'libs.thomas.Input'
 tilemp = require 'libs.tilemp.tilemp'
 gamera = require 'libs.gamera.gamera'
+cron = require 'libs.cron.cron'
+beholder = require 'libs.beholder.beholder'
+require 'util'
 
 --[[
 lick = require 'libs.LICK.lick'
@@ -18,6 +21,8 @@ lick.reset = true -- live code reload
 Player = require 'Player'
 Littleman = require 'Littleman'
 Level = require 'Level'
+Textbox = require 'Textbox'
+Trigger = require 'Trigger'
 
 Game = require 'Game'
 Load = Game:addState('Load')
