@@ -42,7 +42,7 @@ function Level:initialize(game)
         Littleman:new(game, self, x * 12, y * 12 - 10, true)
     end)
 
-    tilemp.parse('res/level.txt')
+    tilemp.parse('res/level1.txt')
     Trigger:new(self.pworld, 278, 192, 100, 100, function() beholder.trigger("scare") end)
 
     self.cam = gamera.new(0, 152, 1550, 2000)

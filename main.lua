@@ -22,6 +22,7 @@ lick.reset = true -- live code reload
 Player = require 'Player'
 Littleman = require 'Littleman'
 Level = require 'Level'
+Level2 = require 'Level2'
 Textbox = require 'Textbox'
 Trigger = require 'Trigger'
 

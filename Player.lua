@@ -20,6 +20,7 @@ function Player:initialize(game, level, x, y)
     self.pworld = level.pworld
     self.pworld:add(self, x, y, 26, 38)
     self.flip = false
+    self.hunger = 100
 end
 
 function Player:draw()
@@ -29,7 +30,7 @@ function Player:draw()
     else
         self.curAnim:draw(self.img, x, y, 0, 1, 1)
     end
-    love.graphics.rectangle('line', self.pworld:getRect(self))
+    --love.graphics.rectangle('line', self.pworld:getRect(self))
 end
 
 function Player:move(vx, vy)
@@ -67,6 +68,7 @@ function Player:update(dt)
     if not love.keyboard.isDown('left') and not love.keyboard.isDown('right') then
         self.curAnim = self.idle
     end
+    self.hunger = self.hunger - 1 * dt
 end
 
 return Player

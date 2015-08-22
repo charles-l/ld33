@@ -2,7 +2,7 @@ local Game = class('Game')
 Game:include(Stateful)
 function Game:load()
     love.graphics.setFont(font)
-    self.curLevel = Level:new(self)
+    self.curLevel = Level2:new(self)
 end
 
 function Game:draw()
