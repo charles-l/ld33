@@ -24,6 +24,9 @@ function Level:initialize(game, file)
     tilemp.bind('q', self.img, love.graphics.newQuad(0 * 12, 3 * 12, 12, 12, self.img:getDimensions()))
     tilemp.bind('w', self.img, love.graphics.newQuad(1 * 12, 3 * 12, 12, 12, self.img:getDimensions()))
     tilemp.bind('e', self.img, love.graphics.newQuad(2 * 12, 3 * 12, 12, 12, self.img:getDimensions()))
+    tilemp.bind('m', function(x,y)
+        Littleman:new(game, x * 12, y * 12)
+    end)
     tilemp.parse('res/level.txt')
     for x=0, 2000, 12 do
         for y=0, 2000, 12 do

@@ -5,7 +5,7 @@
 	path = libs/anim8
 	url = https://github.com/kikito/anim8
 [submodule "libs/cron.lua"]
-	path = libs/cron.lua
+	path = libs/cron
 	url = https://github.com/kikito/cron.lua
 [submodule "libs/lume"]
 	path = libs/lume

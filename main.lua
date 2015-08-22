@@ -16,13 +16,13 @@ lick.reset = true -- live code reload
 ]]--
 
 Player = require 'Player'
+Littleman = require 'Littleman'
 Level = require 'Level'
 
 Game = require 'Game'
 Load = Game:addState('Load')
 
 function Game:initialize()
-    self.cam = gamera.new(0, 200, 2000, 2000)
     self.res = {}
     self.res.img = {}
     self.res.snd = {}
