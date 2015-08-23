@@ -50,9 +50,23 @@ function Level:initialize(game)
     Trigger:new(self.pworld, 150, 192, 20, 100, function()
         Textbox.text('Now is really not the appropriate time to be reading "the Metamorphosis"', 3, 100, 100)
     end, true)
+
+    Trigger:new(self.pworld, 230, 192, 20, 100, function()
+        Textbox.text('A poster for a game jam I was going to particpate in next week.', 3, 100, 100)
+    end, true)
     Trigger:new(self.pworld, 278, 192, 100, 100, function()
         beholder.trigger("scare")
     end)
+
+    Trigger:new(self.pworld, 350, 192, 20, 100, function()
+        Textbox.text('Family photo. I really hope they don\'t hate me now', 3, 100, 100)
+    end, true)
+
+    Trigger:new(self.pworld, 650, 192, 20, 100, function()
+        Textbox.text('A stock photo of a beach.', 3, 100, 100)
+        Textbox.text('It\'s to make people think we go on vacations. Heh.', 3, 100, 100)
+    end, true)
+
     Trigger:new(self.pworld, 800, 192, 100, 100, function()
         self.entities = nil
         tilemp.clear()

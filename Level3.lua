@@ -62,8 +62,10 @@ function Level3:initialize(game)
     end, true)
     Trigger:new(self.pworld, 720, 250, 30, 100, function()
         if self.finish then
-            Textbox.text('Francis: "I\'m not going to press this unless I know what it will do."', 3, 100, 100)
+            Textbox.text('Francis: "Turn everyone into Wesens? Awesome!"', 3, 100, 100)
             self.game.curLevel = GameWin:new(self.game, 'GoodEnd')
+        else
+            Textbox.text('Francis: "I\'m not going to press this unless I know what it will do."', 3, 100, 100)
         end
     end, true)
     self.game.res.img["ufo.png"]:setFilter('nearest', 'nearest')
