@@ -9,7 +9,6 @@ function Player.filter(item, other)
 end
 
 function Player:initialize(game, level, x, y)
-    self.z = 200
     self.id = "player"
     self.img = game.res.img["idle.png"]
     self.img:setFilter('nearest', 'nearest')
@@ -17,11 +16,15 @@ function Player:initialize(game, level, x, y)
     self.idle = anim8.newAnimation(g('1-8', 1), 0.5)
     self.walk = anim8.newAnimation(g('9-12', 1), 0.1)
     self.eat = anim8.newAnimation(g('13-14', 1), 0.1)
+    self.deathTimer = cron.after(2, function()
+        game.curLevel = GameOver:new(game)
+    end)
+    self.death = anim8.newAnimation(g('17-18', 1), 1)
     self.curAnim = self.idle
     self.pworld = level.pworld
     self.pworld:add(self, x, y, 26, 38)
     self.flip = false
-    self.hunger = 100
+    self.hunger = 20
 end
 
 function Player:draw()
@@ -54,6 +57,10 @@ end
 function Player:update(dt)
     self.curAnim:update(dt)
     self:move(0, 7) -- gravity
+    if self.curAnim == self.death then
+        self.deathTimer:update(dt)
+        return
+    end
     --[[
     if love.keyboard.isDown('up') then
         self:move(0, -5)
@@ -62,6 +69,7 @@ function Player:update(dt)
         self:move(0, 5)
     end
     ]]--
+
     if love.keyboard.isDown('left') then
         self.curAnim = self.walk
         self:move(-5, 0)
@@ -81,6 +89,10 @@ function Player:update(dt)
         -- eat
     end
     self.hunger = self.hunger - 1 * dt
+
+    if self.hunger <= 0 then
+        self.curAnim = self.death
+    end
 end
 
 return Player

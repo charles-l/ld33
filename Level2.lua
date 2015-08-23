@@ -3,7 +3,7 @@ local Level2 = class('Level2')
 function Level2:initialize(game)
     self.pworld = bump.newWorld()
     self.entities = table.ordered()
-    self.entities.player = Player:new(game, self, 50, 50)
+    self.entities.player = Player:new(game, self, 50, love.graphics.getHeight()/2)
     self.game = game
 
     -- tilemp load here

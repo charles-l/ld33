@@ -3,7 +3,7 @@ local Level = class('Level')
 function Level:initialize(game)
     self.pworld = bump.newWorld()
     self.entities = table.ordered()
-    self.entities.player = Player:new(game, self, 50, 50)
+    self.entities.player = Player:new(game, self, 50, love.graphics.getHeight()/2)
     self.game = game
 
     -- tilemp load here
@@ -44,7 +44,7 @@ function Level:initialize(game)
 
     tilemp.parse('res/level1.txt')
     Trigger:new(self.pworld, 278, 192, 100, 100, function() beholder.trigger("scare") end)
-    Trigger:new(self.pworld, 500, 192, 100, 100, function()
+    Trigger:new(self.pworld, 800, 192, 100, 100, function()
         self.entities = nil
         tilemp.clear()
         self.game.curLevel = Level2:new(self.game)

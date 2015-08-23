@@ -2,7 +2,7 @@ local Game = class('Game')
 Game:include(Stateful)
 function Game:load()
     love.graphics.setFont(font)
-    self.curLevel = Level:new(self)
+    self.curLevel = GameWin:new(self)
     love.audio.setVolume(0.5)
     love.audio.play(self.res.snd["music.ogg"])
 end
