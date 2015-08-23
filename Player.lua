@@ -43,12 +43,18 @@ function Player:move(vx, vy)
     for i = 1, len do
         local other = cols[i].other
         if other.id == "trigger" then
-            other:trigger()
+            if other.inspect then
+                if love.keyboard.isDown('rshift') then
+                    other:trigger()
+                end
+            else
+                other:trigger()
+            end
         end
 
         if other.id == "littleman" and love.keyboard.isDown(' ') then
             other:eat()
-            self.hunger = self.hunger + 50
+            self.hunger = self.hunger + 20 * love.timer.getDelta()
             if self.hunger > 100 then self.hunger = 100 end
         end
     end

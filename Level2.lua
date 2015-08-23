@@ -32,8 +32,15 @@ function Level2:initialize(game)
     Trigger:new(self.pworld, 278, 192, 100, 100, function() beholder.trigger("scare") end)
 
     self.cam = gamera.new(0, 152, 1550, 2000)
-    Textbox.text('hi', 3, 100, 100)
+    Textbox.text('Wait! Come back! You... tasty morsels', 3, 100, 100)
     beholder.trigger("scare")
+
+    -- HACK
+    for _, v in pairs(self.entities) do
+        if v["update"] ~= nil then
+            v:update(0)
+        end
+    end
 end
 
 function Level2:draw()
@@ -61,6 +68,9 @@ function Level2:update(dt)
     local cx, cy = self.pworld:getRect(self.entities.player)
     self.cam:setPosition(cx * 2, cy * 2 - 100) -- follow player
 
+    Textbox.update(dt)
+    if Textbox.static.boxing then return end
+
     for _, v in pairs(self.entities) do
         if v ~= nil then
             if v["update"] ~= nil then
@@ -68,7 +78,6 @@ function Level2:update(dt)
             end
         end
     end
-    Textbox.update(dt)
 end
 
 return Level2

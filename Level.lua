@@ -43,7 +43,15 @@ function Level:initialize(game)
     end)
 
     tilemp.parse('res/level1.txt')
-    Trigger:new(self.pworld, 278, 192, 100, 100, function() beholder.trigger("scare") end)
+    Trigger:new(self.pworld, 50, 192, 20, 100, function()
+        Textbox.text('I don\'t feel like sleeping.' , 3, 100, 100)
+    end, true)
+    Trigger:new(self.pworld, 150, 192, 20, 100, function()
+        Textbox.text('Now is really not the appropriate time to be reading "the Metamorphosis"', 3, 100, 100)
+    end, true)
+    Trigger:new(self.pworld, 278, 192, 100, 100, function()
+        beholder.trigger("scare")
+    end)
     Trigger:new(self.pworld, 800, 192, 100, 100, function()
         self.entities = nil
         tilemp.clear()
@@ -51,7 +59,17 @@ function Level:initialize(game)
     end)
 
     self.cam = gamera.new(0, 152, 1550, 2000)
-    Textbox.text('hi', 3, 100, 100)
+    Textbox.text('Francis: "Whaa... what\'s wrong with me!?!!"', 3, 100, 100)
+    Textbox.text('Francis: "Why have I transformed?!! AHHHHHHH!!!"', 3, 100, 100)
+    Textbox.text('Francis: "uhhhhhhh... and why am I so hungry?!"', 3, 100, 100)
+    Textbox.text('Hint: Arrow keys to move and space to eat', 3, 100, 100)
+
+    --- HACK
+    for _, v in pairs(self.entities) do
+        if v["update"] ~= nil then
+            v:update(0)
+        end
+    end
 end
 
 function Level:draw()
@@ -76,12 +94,15 @@ function Level:update(dt)
     local cx, cy = self.pworld:getRect(self.entities.player)
     self.cam:setPosition(cx * 2, cy * 2 - 100) -- follow player
 
+    Textbox.update(dt)
+    if Textbox.static.boxing then return end
+
     for _, v in pairs(self.entities) do
         if v["update"] ~= nil then
             v:update(dt)
         end
     end
-    Textbox.update(dt)
+
 end
 
 return Level

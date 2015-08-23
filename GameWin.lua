@@ -4,6 +4,12 @@ GameWin:include(Stateful)
 function GameWin:initialize(game)
     self.game = game
     self:gotoState('GoodEnd')
+    self:load()
+end
+
+local GoodEnd = GameWin:addState('GoodEnd')
+
+function GoodEnd:load()
     love.audio.play(self.game.res.snd["music1.ogg"])
     self.game.res.snd["woot.ogg"]:setLooping(true)
     love.audio.play(self.game.res.snd["woot.ogg"])
@@ -31,9 +37,10 @@ function GameWin:initialize(game)
     for i = 0, 30 do
         self.rands2[i] = math.random(1, 50)
     end
+    Textbox.static.text("The button turns all human beings into Wesen like you", 2, love.graphics.getHeight() - 45)
+    Textbox.static.text("They unanimously choose you as their leader", 2, love.graphics.getHeight() - 45)
+    Textbox.static.text("The end.", 2, love.graphics.getHeight() - 45)
 end
-
-local GoodEnd = GameWin:addState('GoodEnd')
 
 function GoodEnd:draw()
     love.graphics.setBackgroundColor(135, 206, 235)
@@ -50,10 +57,38 @@ function GoodEnd:draw()
     for i = 0, 30 do
         love.graphics.draw(self.game.res.img["idle.png"], self.q2, i * 10 - 10, 70 + math.sin(love.timer.getTime() * 10 + self.rands2[i]))
     end
+    love.graphics.scale(1/6)
+    Textbox.static.draw()
 end
 
 function GoodEnd:update(dt)
     love.audio.stop(self.game.res.snd["music.ogg"]) -- HACK
+    Textbox.static.update(dt)
 end
 
+local BadEnd = GameWin:addState('BadEnd')
+
+function BadEnd:load()
+    self.t1 = love.graphics.newQuad(0, 0, 6, self.game.res.img["littleman.png"]:getHeight(),
+        self.game.res.img["littleman.png"]:getWidth(),
+        self.game.res.img["littleman.png"]:getHeight())
+    self.game.res.img["littleman.png"]:setFilter("nearest", "nearest")
+    Textbox.static.text("You're human again", 2, love.graphics.getHeight() - 45)
+    Textbox.static.text("... but you don't feel victorious", 2, love.graphics.getHeight() - 45)
+    Textbox.static.text("You can now go back and live your life like you used to.", 2, love.graphics.getHeight() - 45)
+    Textbox.static.text("The End", 2, love.graphics.getHeight() - 45)
+end
+
+function BadEnd:draw()
+    Textbox.static.draw()
+    love.graphics.scale(5)
+    love.graphics.draw(self.game.res.img["littleman.png"], self.t1, love.graphics.getWidth()/10, love.graphics.getHeight()/10)
+end
+
+function BadEnd:update(dt)
+    Textbox.static.update(dt)
+end
+
+
 return GameWin
+
