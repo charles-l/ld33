@@ -1,9 +1,9 @@
 local GameWin = class('GameWin')
 GameWin:include(Stateful)
 
-function GameWin:initialize(game)
+function GameWin:initialize(game, state)
     self.game = game
-    self:gotoState('GoodEnd')
+    self:gotoState(state)
     self:load()
 end
 
@@ -44,6 +44,7 @@ end
 
 function GoodEnd:draw()
     love.graphics.setBackgroundColor(135, 206, 235)
+    love.graphics.setColor(255,255,255)
     love.graphics.scale(6)
     love.graphics.draw(self.game.res.img["tilesheet.png"], self.t1, 10,48)
     love.graphics.draw(self.game.res.img["tilesheet.png"], self.t1, 30,48, 0, -1, 1)
@@ -80,6 +81,8 @@ function BadEnd:load()
 end
 
 function BadEnd:draw()
+    love.graphics.setBackgroundColor(0,0,0,0)
+    love.graphics.setColor(255,255,255,255)
     Textbox.static.draw()
     love.graphics.scale(5)
     love.graphics.draw(self.game.res.img["littleman.png"], self.t1, love.graphics.getWidth()/10, love.graphics.getHeight()/10)

@@ -1,6 +1,7 @@
 local Littleman = class('Littleman')
 
 function Littleman:initialize(game, level, x, y, woman)
+    self.game = game
     self.id = "littleman"
     self.scaredID = beholder.observe("scare", function() self.scared = true end)
     self.scared = false
@@ -8,6 +9,7 @@ function Littleman:initialize(game, level, x, y, woman)
     self.flip = false
     self.timer = cron.after(1, function()
         self.animation = self.run
+        self.flip = math.random(0, 1) < .5
         self.domove = true
     end)
     self.eattimer = cron.after(0.1, function()
@@ -65,7 +67,6 @@ function Littleman:move(vx, vy)
             return 'cross'
         else
             if other.id == 'wall' then
-                print(other.id)
                 self.flip = not self.flip
             end
             return 'slide'
@@ -76,7 +77,7 @@ end
 function Littleman:update(dt)
     if self.eatnow then
         local x,y,w,h = self.pworld:getRect(self.level.entities.player)
-        self.pworld:update(self, x + 60, y)
+        self.pworld:update(self, x, y + 1000)
         self.eattimer:update(dt)
         return
     end
@@ -84,6 +85,9 @@ function Littleman:update(dt)
     self:move(0, 7) -- gravity
 
     if self.domove then
+        if math.random(0, 1) > .89 then
+            love.audio.play(self.game.res.snd["scream.wav"])
+        end
         if self.flip then
             self:move(-1,0)
         else

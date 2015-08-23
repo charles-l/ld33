@@ -10,6 +10,7 @@ end
 
 function Player:initialize(game, level, x, y)
     self.id = "player"
+    self.game = game
     self.img = game.res.img["idle.png"]
     self.img:setFilter('nearest', 'nearest')
     local g = anim8.newGrid(26, 38, self.img:getWidth(), self.img:getHeight())
@@ -44,7 +45,7 @@ function Player:move(vx, vy)
         local other = cols[i].other
         if other.id == "trigger" then
             if other.inspect then
-                if love.keyboard.isDown('rshift') then
+                if love.keyboard.isDown('rshift') or love.keyboard.isDown('lshift') then
                     other:trigger()
                 end
             else
@@ -77,11 +78,13 @@ function Player:update(dt)
     ]]--
 
     if love.keyboard.isDown('left') then
+        love.audio.play(self.game.res.snd["step.wav"])
         self.curAnim = self.walk
         self:move(-5, 0)
         self.flip = true
     end
     if love.keyboard.isDown('right') then
+        love.audio.play(self.game.res.snd["step.wav"])
         self.curAnim = self.walk
         self:move(5, 0)
         self.flip = false
@@ -90,6 +93,7 @@ function Player:update(dt)
         self.curAnim = self.idle
     end
     if love.keyboard.isDown(' ') then
+        love.audio.play(self.game.res.snd["chomp.wav"])
         self.curAnim = self.eat
         self.hunger = self.hunger - 10 * dt
         -- eat
@@ -98,6 +102,7 @@ function Player:update(dt)
 
     if self.hunger <= 0 then
         self.curAnim = self.death
+        love.audio.play(self.game.res.snd["die.wav"])
     end
 end
 

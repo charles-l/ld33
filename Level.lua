@@ -4,6 +4,7 @@ function Level:initialize(game)
     self.pworld = bump.newWorld()
     self.entities = table.ordered()
     self.entities.player = Player:new(game, self, 50, love.graphics.getHeight()/2)
+    self.entities.player.hunger = 99999999999999
     self.game = game
 
     -- tilemp load here
@@ -63,6 +64,7 @@ function Level:initialize(game)
     Textbox.text('Francis: "Why have I transformed?!! AHHHHHHH!!!"', 3, 100, 100)
     Textbox.text('Francis: "uhhhhhhh... and why am I so hungry?!"', 3, 100, 100)
     Textbox.text('Hint: Arrow keys to move and space to eat', 3, 100, 100)
+    Textbox.text('Hint: Use shift to investigate.', 3, 100, 100)
 
     --- HACK
     for _, v in pairs(self.entities) do
@@ -70,6 +72,7 @@ function Level:initialize(game)
             v:update(0)
         end
     end
+    self.alpha = 255
 end
 
 function Level:draw()
@@ -88,9 +91,12 @@ function Level:draw()
     love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), 150)
     love.graphics.rectangle('fill', 0, love.graphics.getHeight() - 150, love.graphics.getWidth(), 150)
     Textbox.draw()
+    love.graphics.setColor(0, 0, 0, self.alpha)
+    love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(),love.graphics.getHeight())
 end
 
 function Level:update(dt)
+    if self.alpha > 0 then self.alpha = self.alpha - 1 end
     local cx, cy = self.pworld:getRect(self.entities.player)
     self.cam:setPosition(cx * 2, cy * 2 - 100) -- follow player
 
