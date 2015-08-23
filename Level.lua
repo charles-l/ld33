@@ -44,6 +44,11 @@ function Level:initialize(game)
 
     tilemp.parse('res/level1.txt')
     Trigger:new(self.pworld, 278, 192, 100, 100, function() beholder.trigger("scare") end)
+    Trigger:new(self.pworld, 500, 192, 100, 100, function()
+        self.entities = nil
+        tilemp.clear()
+        self.game.curLevel = Level2:new(self.game)
+    end)
 
     self.cam = gamera.new(0, 152, 1550, 2000)
     Textbox.text('hi', 3, 100, 100)
@@ -56,7 +61,9 @@ function Level:draw()
         love.graphics.scale(2)
         tilemp.drawTiles()
         for _, _, v in orderedPairs(self.entities) do
-            v:draw()
+            if v ~= nil then
+                v:draw()
+            end
         end
     end)
     love.graphics.setColor(0, 0, 0, 255)

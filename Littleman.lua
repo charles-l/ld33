@@ -4,8 +4,11 @@ function Littleman:initialize(game, level, x, y, woman)
     self.id = "littleman"
     self.scaredID = beholder.observe("scare", function() self.scared = true end)
     self.scared = false
+    self.domove = false
+    self.flip = false
     self.timer = cron.after(1, function()
         self.animation = self.run
+        self.domove = true
     end)
     self.eattimer = cron.after(0.1, function()
         self.pworld:remove(self)
@@ -41,7 +44,11 @@ function Littleman:draw()
         end
         -- add particle system
     else
-        self.animation:draw(self.img, x, y)
+        if self.flip then
+            self.animation:draw(self.img, x + 5, y, 0, -1, 1)
+        else
+            self.animation:draw(self.img, x, y)
+        end
     end
 end
 
@@ -53,20 +60,41 @@ end
 
 function Littleman:move(vx, vy)
     local x,y,w,h = self.pworld:getRect(self)
-    local x, y, cols, len = self.pworld:move(self, x + vx, y + vy)
+    local x, y, cols, len = self.pworld:move(self, x + vx, y + vy, function(item, other)
+        if other.id == "trigger" then
+            return 'cross'
+        else
+            if other.id == 'wall' then
+                print(other.id)
+                self.flip = not self.flip
+            end
+            return 'slide'
+        end
+    end)
 end
 
 function Littleman:update(dt)
-    self:move(0, 7) -- gravity
-    self:move(1, 0)
     if self.eatnow then
         local x,y,w,h = self.pworld:getRect(self.level.entities.player)
         self.pworld:update(self, x + 60, y)
         self.eattimer:update(dt)
+        return
     end
-    if not self.scared then return end
-    self.timer:update(dt)
-    self.animation:update(dt)
+
+    self:move(0, 7) -- gravity
+
+    if self.domove then
+        if self.flip then
+            self:move(-1,0)
+        else
+            self:move(1,0)
+        end
+    end
+
+    if self.scared then
+        self.timer:update(dt)
+        self.animation:update(dt)
+    end
 end
 
 return Littleman

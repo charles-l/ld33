@@ -44,6 +44,14 @@ function Load:load_resources()
         self.res.img[fname] = love.graphics.newImage("res/img/" .. fname)
     end
 
+    for _, fname in pairs(love.filesystem.getDirectoryItems("res/snd")) do
+        if fname:find("music") then
+            self.res.snd[fname] = love.audio.newSource("res/snd/" .. fname, 'stream')
+        else
+            self.res.snd[fname] = love.audio.newSource("res/snd/" .. fname, 'stream')
+        end
+    end
+
     loader.start(self:gotoState())
     self:load() -- otherwise the load for the new state is never called
 end
